@@ -20,3 +20,35 @@ void memcpy_vect(std::vector<unsigned char>& des_vect, const std::vector<unsigne
 void sub_vect(const std::vector<unsigned char>& in_vect, int begin, int size, std::vector<unsigned char>& out_vect);
 void vect_xor(std::vector<unsigned char>& des_vect, const std::vector<unsigned char> src_vect);
 void concat_vect(std::vector<unsigned char>& des_vect, const std::vector<unsigned char>& src_vect);
+
+template<typename T> 
+void assign_t_with_vect(const std::vector<unsigned char>& vect, T* t_value, int t_count)
+{
+	int size_of_T = sizeof(T);
+	if (vect.size() != size_of_T * t_count)
+	{
+		LogError("assign_t_with_vect error!");
+		return;
+	}
+	unsigned char* ptr = (unsigned char*)t_value;
+	for (int i=0; i<t_count*size_of_T; i++)
+	{
+		ptr[i] = vect[i];
+	}
+}
+
+template<typename T> 
+void assign_vect_with_t(std::vector<unsigned char>& vect, T* t_value, int t_count)
+{
+	int size_of_T = sizeof(T);
+	if (vect.size() != size_of_T * t_count)
+	{
+		LogError("assign_vect_with_t error!");
+		return;
+	}
+	unsigned char* ptr = (unsigned char*)t_value;
+	for (int i=0; i<t_count*size_of_T; i++)
+	{
+		vect[i] = ptr[i];
+	}
+}
